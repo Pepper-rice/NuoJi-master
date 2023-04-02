@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.store.mapper.StorePhoneMapper">
+
+    <resultMap type="StorePhone" id="StorePhoneResult">
+        <result property="phoneId"    column="phone_id"    />
+        <result property="phoneName"    column="phone_name"    />
+        <result property="phoneBrand"    column="phone_brand"    />
+        <result property="phoneStorage"    column="phone_storage"    />
+        <result property="price"    column="price"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectStorePhoneVo">
+        select phone_id, phone_name, phone_brand, phone_storage, price, status, del_flag, create_by, create_time, update_by, update_time from store_phone
+    </sql>
+
+    <select id="selectStorePhoneList" parameterType="StorePhone" resultMap="StorePhoneResult">
+        <include refid="selectStorePhoneVo"/>
+        <where>
+            <if test="phoneName != null  and phoneName != ''"> and phone_name like concat('%', #{phoneName}, '%')</if>
+            <if test="phoneBrand != null  and phoneBrand != ''"> and phone_brand = #{phoneBrand}</if>
+            <if test="phoneStorage != null  and phoneStorage != ''"> and phone_storage = #{phoneStorage}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectStorePhoneByPhoneId" parameterType="Long" resultMap="StorePhoneResult">
+        <include refid="selectStorePhoneVo"/>
+        where phone_id = #{phoneId}
+    </select>
+
+    <insert id="insertStorePhone" parameterType="StorePhone" useGeneratedKeys="true" keyProperty="phoneId">
+        insert into store_phone
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="phoneId != null and postId != 0">phone_id,</if>
+            <if test="phoneName != null">phone_name,</if>
+            <if test="phoneBrand != null">phone_brand,</if>
+            <if test="phoneStorage != null">phone_storage,</if>
+            <if test="price != null">price,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="phoneId != null">#{phoneId},</if>
+            <if test="phoneName != null">#{phoneName},</if>
+            <if test="phoneBrand != null">#{phoneBrand},</if>
+            <if test="phoneStorage != null">#{phoneStorage},</if>
+            <if test="price != null">#{price},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStorePhone" parameterType="StorePhone">
+        update store_phone
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="phoneName != null">phone_name = #{phoneName},</if>
+            <if test="phoneBrand != null">phone_brand = #{phoneBrand},</if>
+            <if test="phoneStorage != null">phone_storage = #{phoneStorage},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where phone_id = #{phoneId}
+    </update>
+
+    <delete id="deleteStorePhoneByPhoneId" parameterType="Long">
+        delete from store_phone where phone_id = #{phoneId}
+    </delete>
+
+    <delete id="deleteStorePhoneByPhoneIds" parameterType="String">
+        delete from store_phone where phone_id in
+        <foreach item="phoneId" collection="array" open="(" separator="," close=")">
+            #{phoneId}
+        </foreach>
+    </delete>
+</mapper>
