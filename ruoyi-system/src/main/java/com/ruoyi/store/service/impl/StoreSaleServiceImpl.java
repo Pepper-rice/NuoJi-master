@@ -2,6 +2,8 @@ package com.ruoyi.store.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.convert.ISaleConverter;
+import com.ruoyi.store.domain.dto.StoreSaleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.store.mapper.StoreSaleMapper;
@@ -18,6 +20,9 @@ public class StoreSaleServiceImpl implements IStoreSaleService
     @Autowired
     private StoreSaleMapper storeSaleMapper;
 
+    @Autowired
+    private ISaleConverter saleConverter;
+
     /**
      * 查询销售
      *
@@ -33,37 +38,39 @@ public class StoreSaleServiceImpl implements IStoreSaleService
     /**
      * 查询销售列表
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 销售
      */
     @Override
-    public List<StoreSale> selectStoreSaleList(StoreSale storeSale)
+    public List<StoreSale> selectStoreSaleList(StoreSaleDTO storeSaleDTO)
     {
+        StoreSale storeSale = saleConverter.dto2po(storeSaleDTO);
         return storeSaleMapper.selectStoreSaleList(storeSale);
     }
 
     /**
      * 新增销售
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 结果
      */
     @Override
-    public int insertStoreSale(StoreSale storeSale)
+    public int insertStoreSale(StoreSaleDTO storeSaleDTO)
     {
-        storeSale.setCreateTime(DateUtils.getNowDate());
+        StoreSale storeSale = saleConverter.dto2po(storeSaleDTO);
         return storeSaleMapper.insertStoreSale(storeSale);
     }
 
     /**
      * 修改销售
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 结果
      */
     @Override
-    public int updateStoreSale(StoreSale storeSale)
+    public int updateStoreSale(StoreSaleDTO storeSaleDTO)
     {
+        StoreSale storeSale = saleConverter.dto2po(storeSaleDTO);
         storeSale.setUpdateTime(DateUtils.getNowDate());
         return storeSaleMapper.updateStoreSale(storeSale);
     }

@@ -1,15 +1,15 @@
-package com.ruoyi.store.domain;
+package com.ruoyi.store.domain.vo;
 
-import lombok.Data;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import lombok.Data;
 
 /**
  * 手机对象 store_phone
  * @date 2023-03-31
  */
 @Data
-public class StorePhone extends BaseEntity
+public class StorePhoneVO extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

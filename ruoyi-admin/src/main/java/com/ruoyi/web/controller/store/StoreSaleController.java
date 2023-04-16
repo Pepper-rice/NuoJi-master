@@ -2,6 +2,10 @@ package com.ruoyi.web.controller.store;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.convert.ISaleConverter;
+import com.ruoyi.store.domain.dto.StoreSaleDTO;
+import com.ruoyi.store.domain.vo.StoreSaleVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +27,6 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 销售Controller
- *
- * @author ruoyi
  * @date 2023-04-02
  */
 @RestController
@@ -34,15 +36,19 @@ public class StoreSaleController extends BaseController
     @Autowired
     private IStoreSaleService storeSaleService;
 
+    @Autowired
+    private ISaleConverter saleConverter;
+
     /**
      * 查询销售列表
      */
     @PreAuthorize("@ss.hasPermi('store:sale:list')")
     @GetMapping("/list")
-    public TableDataInfo list(StoreSale storeSale)
+    public TableDataInfo list(StoreSaleVO storeSaleVO)
     {
+        StoreSaleDTO storeSaleDTO = saleConverter.vo2dto(storeSaleVO);
         startPage();
-        List<StoreSale> list = storeSaleService.selectStoreSaleList(storeSale);
+        List<StoreSale> list = storeSaleService.selectStoreSaleList(storeSaleDTO);
         return getDataTable(list);
     }
 
@@ -52,9 +58,10 @@ public class StoreSaleController extends BaseController
     @PreAuthorize("@ss.hasPermi('store:sale:export')")
     @Log(title = "销售", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, StoreSale storeSale)
+    public void export(HttpServletResponse response, StoreSaleVO storeSaleVO)
     {
-        List<StoreSale> list = storeSaleService.selectStoreSaleList(storeSale);
+        StoreSaleDTO storeSaleDTO = saleConverter.vo2dto(storeSaleVO);
+        List<StoreSale> list = storeSaleService.selectStoreSaleList(storeSaleDTO);
         ExcelUtil<StoreSale> util = new ExcelUtil<StoreSale>(StoreSale.class);
         util.exportExcel(response, list, "销售数据");
     }
@@ -75,9 +82,10 @@ public class StoreSaleController extends BaseController
     @PreAuthorize("@ss.hasPermi('store:sale:add')")
     @Log(title = "销售", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody StoreSale storeSale)
+    public AjaxResult add(@RequestBody StoreSaleVO storeSaleVO)
     {
-        return toAjax(storeSaleService.insertStoreSale(storeSale));
+        StoreSaleDTO storeSaleDTO = saleConverter.vo2dto(storeSaleVO);
+        return toAjax(storeSaleService.insertStoreSale(storeSaleDTO));
     }
 
     /**
@@ -86,9 +94,10 @@ public class StoreSaleController extends BaseController
     @PreAuthorize("@ss.hasPermi('store:sale:edit')")
     @Log(title = "销售", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody StoreSale storeSale)
+    public AjaxResult edit(@RequestBody StoreSaleVO storeSaleVO)
     {
-        return toAjax(storeSaleService.updateStoreSale(storeSale));
+        StoreSaleDTO storeSaleDTO = saleConverter.vo2dto(storeSaleVO);
+        return toAjax(storeSaleService.updateStoreSale(storeSaleDTO));
     }
 
     /**

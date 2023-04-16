@@ -32,6 +32,16 @@
         <jwt.version>0.9.1</jwt.version>
     </properties>
 
+    <packaging>pom</packaging>
+    <modules>
+        <module>ruoyi-common</module>
+        <module>ruoyi-system</module>
+        <module>ruoyi-quartz</module>
+        <module>ruoyi-framework</module>
+        <module>ruoyi-generator</module>
+        <module>ruoyi-admin</module>
+    </modules>
+
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
@@ -43,6 +53,32 @@
                 <version>2.3.3.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
+            </dependency>
+
+            <!--MapStruct依赖-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>1.5.0.RC1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.5.0.RC1</version>
+            </dependency>
+
+            <!--Hutool依赖-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.0.6</version>
             </dependency>
 
             <!-- 阿里数据库连接池 -->
@@ -173,15 +209,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-quartz</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
-    </modules>
-    <packaging>pom</packaging>
 
 
     <dependencies>

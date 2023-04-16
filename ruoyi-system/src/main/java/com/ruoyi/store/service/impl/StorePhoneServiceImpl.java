@@ -1,7 +1,9 @@
 package com.ruoyi.store.service.impl;
 
 import java.util.List;
-import com.ruoyi.common.utils.DateUtils;
+
+import com.ruoyi.convert.IPhoneConverter;
+import com.ruoyi.store.domain.dto.StorePhoneDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.store.mapper.StorePhoneMapper;
@@ -18,6 +20,9 @@ public class StorePhoneServiceImpl implements IStorePhoneService
     @Autowired
     private StorePhoneMapper storePhoneMapper;
 
+    @Autowired
+    private IPhoneConverter phoneConverter;
+
     /**
      * 查询手机
      *
@@ -33,38 +38,39 @@ public class StorePhoneServiceImpl implements IStorePhoneService
     /**
      * 查询手机列表
      *
-     * @param storePhone 手机
+     * @param storePhoneDTO 手机
      * @return 手机
      */
     @Override
-    public List<StorePhone> selectStorePhoneList(StorePhone storePhone)
+    public List<StorePhone> selectStorePhoneList(StorePhoneDTO storePhoneDTO)
     {
+        StorePhone storePhone = phoneConverter.dto2po(storePhoneDTO);
         return storePhoneMapper.selectStorePhoneList(storePhone);
     }
 
     /**
      * 新增手机
      *
-     * @param storePhone 手机
+     * @param storePhoneDTO 手机
      * @return 结果
      */
     @Override
-    public int insertStorePhone(StorePhone storePhone)
+    public int insertStorePhone(StorePhoneDTO storePhoneDTO)
     {
-        storePhone.setCreateTime(DateUtils.getNowDate());
+        StorePhone storePhone = phoneConverter.dto2po(storePhoneDTO);
         return storePhoneMapper.insertStorePhone(storePhone);
     }
 
     /**
      * 修改手机
      *
-     * @param storePhone 手机
+     * @param storePhoneDTO 手机
      * @return 结果
      */
     @Override
-    public int updateStorePhone(StorePhone storePhone)
+    public int updateStorePhone(StorePhoneDTO storePhoneDTO)
     {
-        storePhone.setUpdateTime(DateUtils.getNowDate());
+        StorePhone storePhone = phoneConverter.dto2po(storePhoneDTO);
         return storePhoneMapper.updateStorePhone(storePhone);
     }
 

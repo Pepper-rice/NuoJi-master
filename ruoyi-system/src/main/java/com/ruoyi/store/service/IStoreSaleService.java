@@ -2,6 +2,7 @@ package com.ruoyi.store.service;
 
 import java.util.List;
 import com.ruoyi.store.domain.StoreSale;
+import com.ruoyi.store.domain.dto.StoreSaleDTO;
 
 /**
  * 销售Service接口
@@ -20,26 +21,26 @@ public interface IStoreSaleService
     /**
      * 查询销售列表
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 销售集合
      */
-    public List<StoreSale> selectStoreSaleList(StoreSale storeSale);
+    public List<StoreSale> selectStoreSaleList(StoreSaleDTO storeSaleDTO);
 
     /**
      * 新增销售
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 结果
      */
-    public int insertStoreSale(StoreSale storeSale);
+    public int insertStoreSale(StoreSaleDTO storeSaleDTO);
 
     /**
      * 修改销售
      *
-     * @param storeSale 销售
+     * @param storeSaleDTO 销售
      * @return 结果
      */
-    public int updateStoreSale(StoreSale storeSale);
+    public int updateStoreSale(StoreSaleDTO storeSaleDTO);
 
     /**
      * 批量删除销售
