@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="StoreSale" id="StoreSaleResult">
         <result property="saleId"    column="sale_id"    />
-        <result property="customerName"    column="customer_name"    />
+        <result property="customerName"    column="user_name"    />
         <result property="phoneId"    column="phone_id"    />
         <result property="saleDate"    column="sale_date"    />
         <result property="saleQuantity"    column="sale_quantity"    />
@@ -20,13 +20,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectStoreSaleVo">
-        select sale_id, customer_name, phone_id, sale_date, sale_quantity, sale_price, del_flag, create_by, create_time, update_by, update_time, remark from store_sale
+        select sale_id, user_name, phone_id, sale_date, sale_quantity, sale_price, del_flag, create_by, create_time, update_by, update_time, remark from store_sale
     </sql>
 
     <select id="selectStoreSaleList" parameterType="StoreSale" resultMap="StoreSaleResult">
         <include refid="selectStoreSaleVo"/>
         <where>
-            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="customerName != null  and customerName != ''"> and user_name like concat('%', #{customerName}, '%')</if>
             <if test="phoneId != null "> and phone_id = #{phoneId}</if>
             <if test="saleDate != null "> and sale_date = #{saleDate}</if>
             <if test="saleQuantity != null "> and sale_quantity = #{saleQuantity}</if>
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertStoreSale" parameterType="StoreSale" useGeneratedKeys="true" keyProperty="saleId">
         insert into store_sale
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="customerName != null">customer_name,</if>
+            <if test="customerName != null">user_name,</if>
             <if test="phoneId != null">phone_id,</if>
             <if test="saleDate != null">sale_date,</if>
             <if test="saleQuantity != null">sale_quantity,</if>
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateStoreSale" parameterType="StoreSale">
         update store_sale
         <trim prefix="SET" suffixOverrides=",">
-            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="customerName != null">user_name = #{customerName},</if>
             <if test="phoneId != null">phone_id = #{phoneId},</if>
             <if test="saleDate != null">sale_date = #{saleDate},</if>
             <if test="saleQuantity != null">sale_quantity = #{saleQuantity},</if>

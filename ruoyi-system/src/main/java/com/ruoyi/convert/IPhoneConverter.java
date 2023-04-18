@@ -14,8 +14,11 @@ import org.mapstruct.Mapping;
  */
 @Mapper(componentModel = "spring", imports = {DateUtils.class})
 public interface IPhoneConverter {
+
     StorePhoneDTO vo2dto(StorePhoneVO storePhoneVO);
 
     @Mapping(target = "createTime", expression = "java(DateUtils.getNowDate())")
-    StorePhone dto2po(StorePhoneDTO PhoneDTO);
+    StorePhone dto2po(StorePhoneDTO storePhoneDTO);
+
+    StorePhoneDTO po2dto(StorePhone storePhone);
 }

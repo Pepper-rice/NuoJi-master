@@ -10,17 +10,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="phoneBrand"    column="phone_brand"    />
         <result property="phoneStorage"    column="phone_storage"    />
         <result property="price"    column="price"    />
-        <result property="phoneQuantity"    column="stock_quantity"    />
         <result property="status"    column="status"    />
         <result property="delFlag"    column="del_flag"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="phoneQuantity"    column="stock_quantity"    />
     </resultMap>
 
     <sql id="selectStorePhoneVo">
-        select phone_id, phone_name, phone_brand, phone_storage, price, stock_quantity, status, del_flag, create_by, create_time, update_by, update_time from store_phone
+        select phone_id, phone_name, phone_brand, phone_storage, price, status, del_flag, create_by, create_time, update_by, update_time, stock_quantity from store_phone
     </sql>
 
     <select id="selectStorePhoneList" parameterType="StorePhone" resultMap="StorePhoneResult">
@@ -48,28 +48,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="phoneBrand != null">phone_brand,</if>
             <if test="phoneStorage != null">phone_storage,</if>
             <if test="price != null">price,</if>
-            <if test="phoneQuantity != null">stock_quantity,</if>
             <if test="status != null">status,</if>
             <if test="delFlag != null">del_flag,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
-         </trim>
+            <if test="phoneQuantity != null">stock_quantity,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="phoneId != null">#{phoneId},</if>
             <if test="phoneName != null">#{phoneName},</if>
             <if test="phoneBrand != null">#{phoneBrand},</if>
             <if test="phoneStorage != null">#{phoneStorage},</if>
             <if test="price != null">#{price},</if>
-            <if test="phoneQuantity != null">#{phoneQuantity},</if>
             <if test="status != null">#{status},</if>
             <if test="delFlag != null">#{delFlag},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
-         </trim>
+            <if test="phoneQuantity != null">#{phoneQuantity},</if>
+        </trim>
     </insert>
 
     <update id="updateStorePhone" parameterType="StorePhone">
@@ -79,13 +79,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="phoneBrand != null">phone_brand = #{phoneBrand},</if>
             <if test="phoneStorage != null">phone_storage = #{phoneStorage},</if>
             <if test="price != null">price = #{price},</if>
-            <if test="phoneQuantity != null">stock_quantity = #{phoneQuantity},</if>
             <if test="status != null">status = #{status},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="phoneQuantity != null">stock_quantity = #{phoneQuantity},</if>
         </trim>
         where phone_id = #{phoneId}
     </update>
