@@ -1,7 +1,9 @@
 package com.ruoyi.convert;
 
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.store.domain.StorePhone;
 import com.ruoyi.store.domain.StoreSale;
+import com.ruoyi.store.domain.dto.StorePhoneDTO;
 import com.ruoyi.store.domain.dto.StoreSaleDTO;
 import com.ruoyi.store.domain.vo.StoreSaleVO;
 import org.mapstruct.Mapper;
@@ -17,4 +19,6 @@ public interface ISaleConverter {
 
     @Mapping(target = "createTime", expression = "java(DateUtils.getNowDate())")
     StoreSale dto2po(StoreSaleDTO SaleDTO);
+
+    StoreSaleDTO po2dto(StoreSale storeSale);
 }
